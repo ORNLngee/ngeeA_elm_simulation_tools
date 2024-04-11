@@ -6,7 +6,7 @@ set -e
 
 CASEDIR="/output/cime_case_dirs/ELMcpu_42SITES_I1850CNPRDCTCBC"
 
-rm -r "${CASEDIR}"
+rm -rf "${CASEDIR}"
 
 /E3SM/cime/scripts/create_newcase --case "${CASEDIR}" --mach docker --compset I1850CNPRDCTCBC --res ELM_USRDAT --mpilib openmpi --walltime 4:0:00 --handle-preexisting-dirs u --compiler nvidia
 
