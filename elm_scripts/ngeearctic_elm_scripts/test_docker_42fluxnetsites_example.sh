@@ -6,9 +6,9 @@ set -e
 
 CASEDIR="/output/cime_case_dirs/ELMcpu_42SITES_I1850CNPRDCTCBC"
 
-rm -r "${CASEDIR}"
+rm -rf "${CASEDIR}"
 
-/E3SM/cime/scripts/create_newcase --case "${CASEDIR}" --mach docker --compset I1850CNPRDCTCBC --res ELM_USRDAT --mpilib openmpi --walltime 4:0:00 --handle-preexisting-dirs u --compiler nvidia
+/E3SM/cime/scripts/create_newcase --case "${CASEDIR}" --mach docker --compset I1850CNPRDCTCBC --res ELM_USRDAT --mpilib openmpi --walltime 4:0:00 --handle-preexisting-dirs u --compiler gnu
 
 cd "${CASEDIR}"
 
@@ -25,6 +25,18 @@ cd "${CASEDIR}"
 ./xmlchange DATM_CLMNCEP_YR_START=1901
 
 ./xmlchange DATM_CLMNCEP_YR_END=1930
+
+./xmlchange NTASKS=1
+
+./xmlchange NTHRDS=1
+
+echo " 
+fsurdat='/inputdata/lnd/clm2/surfdata_map/surfdata_42_FLUXNETSITES_simyr1850_c170912.nc' 
+">>user_nl_elm
+
+echo "
+ taxmode = 'cycle','extend','extend'
+">>user_nl_datm
 
 ./case.setup --clean
 
