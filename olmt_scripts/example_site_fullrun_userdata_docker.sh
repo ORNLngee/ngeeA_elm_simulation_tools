@@ -7,7 +7,7 @@
 # =======================================================================================
 
 cwd=$(pwd)
-cd /tools/OLMT
+cd ~/tools/OLMT
 
 # =======================================================================================
 # Get the input options from the command line
@@ -203,16 +203,16 @@ runcmd="python3 ./site_fullrun.py \
       ${sim_years} --tstep ${timestep} --machine docker \
       --compiler gnu --mpilib openmpi \
       --cpl_bypass --gswp3 \
-      --model_root /E3SM \
-      --caseroot /output \
-      --ccsm_input /inputdata \
-      --runroot /output \
+      --model_root ~/models/E3SM \
+      --caseroot ~/output \
+      --ccsm_input ~/inputdata \
+      --runroot ~/output \
       --spinup_vars \
       --nopointdata \
-      --metdir /inputdata/atm/datm7/atm_forcing.datm7.GSWP3.0.5d.v2.c180716_NGEE-Grid/cpl_bypass_${site_name}-Grid \
-      --domainfile /inputdata/share/domains/domain.clm/domain.lnd.1x1pt_${site_name}-GRID_navy.nc \
-      --surffile /inputdata/lnd/clm2/surfdata_map/surfdata_1x1pt_${site_name}-GRID_simyr1850_c360x720_c171002.nc \
-      --landusefile /inputdata/lnd/clm2/surfdata_map/landuse.timeseries_1x1pt_${site_name}-GRID_simyr1850-2015_c180423.nc \
+      --metdir ~/inputdata/atm/datm7/atm_forcing.datm7.GSWP3.0.5d.v2.c180716_NGEE-Grid/cpl_bypass_${site_name}-Grid \
+      --domainfile ~/inputdata/share/domains/domain.clm/domain.lnd.1x1pt_${site_name}-GRID_navy.nc \
+      --surffile ~/inputdata/lnd/clm2/surfdata_map/surfdata_1x1pt_${site_name}-GRID_simyr1850_c360x720_c171002.nc \
+      --landusefile ~/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_1x1pt_${site_name}-GRID_simyr1850-2015_c180423.nc \
       ${scaling_args} \
       & sleep 10"
 echo ${runcmd}
@@ -225,16 +225,16 @@ if python3 ./site_fullrun.py \
       ${sim_years} --tstep ${timestep} --machine docker \
       --compiler gnu --mpilib openmpi \
       --cpl_bypass --gswp3 \
-      --model_root /E3SM \
-      --caseroot /output \
-      --ccsm_input /inputdata \
-      --runroot /output \
+      --model_root ~/E3SM \
+      --caseroot ~/output \
+      --ccsm_input ~/inputdata \
+      --runroot ~/output \
       --spinup_vars \
       --nopointdata \
-      --metdir /inputdata/atm/datm7/atm_forcing.datm7.GSWP3.0.5d.v2.c180716_NGEE-Grid/cpl_bypass_${site_name}-Grid \
-      --domainfile /inputdata/share/domains/domain.clm/domain.lnd.1x1pt_${site_name}-GRID_navy.nc \
-      --surffile /inputdata/lnd/clm2/surfdata_map/surfdata_1x1pt_${site_name}-GRID_simyr1850_c360x720_c171002.nc \
-      --landusefile /inputdata/lnd/clm2/surfdata_map/landuse.timeseries_1x1pt_${site_name}-GRID_simyr1850-2015_c180423.nc \
+      --metdir ~/inputdata/atm/datm7/atm_forcing.datm7.GSWP3.0.5d.v2.c180716_NGEE-Grid/cpl_bypass_${site_name}-Grid \
+      --domainfile ~/inputdata/share/domains/domain.clm/domain.lnd.1x1pt_${site_name}-GRID_navy.nc \
+      --surffile ~/inputdata/lnd/clm2/surfdata_map/surfdata_1x1pt_${site_name}-GRID_simyr1850_c360x720_c171002.nc \
+      --landusefile ~/inputdata/lnd/clm2/surfdata_map/landuse.timeseries_1x1pt_${site_name}-GRID_simyr1850-2015_c180423.nc \
       ${scaling_args} \
       & sleep 10
 
@@ -255,13 +255,13 @@ echo " "
 echo " "
 echo " "
 echo "**** Postprocessing ELM output in: "
-echo "/output/cime_run_dirs/${case_prefix}_${site_code}_ICB20TRCNPRDCTCBC/run"
+echo "~/output/cime_run_dirs/${case_prefix}_${site_code}_ICB20TRCNPRDCTCBC/run"
 echo " "
 echo " "
-cd /output/cime_run_dirs/${case_prefix}_${site_code}_ICB20TRCNPRDCTCBC/run
+cd ~/output/cime_run_dirs/${case_prefix}_${site_code}_ICB20TRCNPRDCTCBC/run
 echo "**** Concatenating netCDF output - Hang tight this can take awhile ****"
 ncrcat --ovr *.h0.*.nc ELM_output.nc
-chmod 777 ELM_output.nc
+chmod 775 ELM_output.nc
 echo "**** Concatenating netCDF output: DONE ****"
 sleep 2
 # =======================================================================================
